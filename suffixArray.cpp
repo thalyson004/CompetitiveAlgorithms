@@ -12,20 +12,6 @@ struct SuffixArray{
       {
          vector<int> ctn(len);
          for( auto &it: v ){
-            ctn[ it.first.second ]++;
-         }
-         vector<int> start(len);
-         for(int i = 1; i < len; i++) start[i] = start[i-1]+ctn[i-1];
-         vector< pair< pair<int,int> ,int> > v_new(len);
-         for( auto &it:v) {
-            v_new[ start[ it.first.second ]++ ] = it;
-         }
-         v = v_new;
-      }
-
-      {
-         vector<int> ctn(len);
-         for( auto &it: v ){
             ctn[ it.first.first ]++;
          }
          vector<int> start(len);
@@ -60,8 +46,12 @@ struct SuffixArray{
 
       for(int k = 0; (1<<(k)) < len; k++){
          vector< pair< pair<int,int> ,int> > v(len);
+
          for(int i = 0; i < len; i++)
-            v[i] = {{level[i], level[  (i+(1<<k))%len ]}, i};
+            P[i] = (P[i] - (1<<k) + len)%len;
+
+         for(int i = 0; i < len; i++)
+            v[i] = {{level[ P[i] ], level[  (P[i]+(1<<k))%len ]}, P[i]};
 
          mySort( v );
 
@@ -83,11 +73,15 @@ struct SuffixArray{
 //END
 int main(){
    string s;
-   s = "ababba";
+   //s = "ababba";
+   cin >> s;
 
    SuffixArray myArray(s.c_str());
 
-   myArray.print();
+   //myArray.print();
+   vector<int> ans = myArray.P;
+   for(int i: ans)printf("%d ", i);
+   printf("\n");
 }
 
 /*
