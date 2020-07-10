@@ -113,6 +113,10 @@ struct SuffixArray{
       return l>=0?r-l+1:0;
    }
 
+   int is_substr(string &_s){
+      return first_match(_s) != -1;
+   }
+
    void print(){
       printf("--- My Array ---\n");
       for(int i = 0; i < len; i++){
@@ -146,4 +150,7 @@ ababba
 ba
 baba
 abba
+
+Número de diferentes subsequências contíguas que aparecem pelo menos duas vezes na sequência
+https://www.urionlinejudge.com.br/judge/pt/problems/view/1377
 */
