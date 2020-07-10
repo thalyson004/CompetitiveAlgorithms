@@ -61,6 +61,58 @@ struct SuffixArray{
       }
    }
 
+   /*
+   menor = 1
+   maior = 0
+   igual = -1
+   */
+   int compStr(int in, string &_s){
+      for(int i = 0; i < _s.size(); i++){
+         if( s[ (P[in]+i)%len ] != _s[i] ){
+            return s[ (P[in]+i)%len ] < _s[i];
+         }
+      }
+
+      return -1;
+   }
+
+   int first_match(string &_s){
+      if( _s.size() > len ) return -1;
+      int l = 0, r = len-1;
+
+      while(l < r){
+         int m = (l+r)/2;
+         if( compStr(m, _s)==1 ){
+            l = m+1;
+         }else{
+            r = m;
+         }
+      }
+      return compStr(l, _s)==-1?l:-1;
+   }
+
+   int last_match(string &_s){
+      if( _s.size() > len ) return -1;
+      int l = 0, r = len-1;
+
+      while(l < r){
+         int m = (l+r+1)/2;
+         if( compStr(m, _s) ){
+            l = m;
+         }else{
+            r = m-1;
+         }
+      }
+      return compStr(l, _s)==-1?l:-1;
+   }
+
+   int count_substr(string &_s){
+      int l = first_match(_s);
+      int r = last_match(_s);
+
+      return l>=0?r-l+1:0;
+   }
+
    void print(){
       printf("--- My Array ---\n");
       for(int i = 0; i < len; i++){
@@ -71,17 +123,27 @@ struct SuffixArray{
 //END
 int main(){
    string s;
-   //s = "ababba";
    cin >> s;
 
    SuffixArray myArray(s.c_str());
 
    //myArray.print();
-   vector<int> ans = myArray.P;
-   for(int i: ans)printf("%d ", i);
-   printf("\n");
+   //vector<int> ans = myArray.P;
+   //for(int i: ans)printf("%d ", i);
+   //printf("\n");
+   int n;
+   cin >> n;
+   for(int i = 0; i < n;i ++){
+      cin >> s;
+      cout << myArray.count_substr(s) << "\n";
+
+   }
 }
 
 /*
 ababba
+3
+ba
+baba
+abba
 */
