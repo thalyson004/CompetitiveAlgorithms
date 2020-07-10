@@ -139,20 +139,33 @@ struct SuffixArray{
          cout << P[i] << ' ' <<  (s.c_str() + P[i]) << '\n';
       }
    }
+
+   long long count_substrs(){
+      long long ans = 0;
+
+      for(int i = 1; i < len; i++){
+         ans += (len-P[i]-1)-lcp[i-1];
+      }
+      return ans;
+   }
 };
 //END
 int main(){
    string s;
    cin >> s;
-   //s = "ababba";
+   //s = "mmuc";
    SuffixArray myArray(s.c_str());
 
-   vector<int> ans = myArray.P;
-   for(int i: ans)printf("%d ", i); printf("\n");
+   //myArray.print();printf("\n");
 
-   ans = myArray.lcp;
-   for(int i: ans)printf("%d ", i); printf("\n");
+   //vector<int> ans = myArray.P;
+   //for(int i: ans)printf("%d ", i); printf("\n\n");
 
+//   ans = myArray.lcp;
+//   for(int i: ans)printf("%d ", i); printf("\n\n");
+
+
+   printf("%lld\n", myArray.count_substrs() );
 
    return 0;
 }
@@ -162,6 +175,8 @@ ababba
 
 6 5 0 2 4 1 3
 0 1 2 0 2 1
+
+15
 
 Número de diferentes subsequências contíguas que aparecem pelo menos duas vezes na sequência
 https://www.urionlinejudge.com.br/judge/pt/problems/view/1377
