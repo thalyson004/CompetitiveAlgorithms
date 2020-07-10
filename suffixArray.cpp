@@ -75,6 +75,7 @@ struct SuffixArray{
          lcp[ pos[i]-1 ] = k--;
          k = max(k, int(0) );
       }
+
    }
 
    /*
@@ -142,19 +143,39 @@ struct SuffixArray{
 
    long long count_substrs(){
       long long ans = 0;
-
       for(int i = 1; i < len; i++){
          ans += (len-P[i]-1)-lcp[i-1];
       }
       return ans;
    }
+
+   static string lcs(const string a, const string b){
+      string myS = a+"@"+b;
+
+      SuffixArray myArray( myS );
+
+      int lcsLen=0;
+      int lcsid=0;
+      for(int i = 1; i < myArray.len; i++){
+         int c1 = myArray.P[i-1]<a.size();
+         int c2 = myArray.P[i]<a.size();
+         if( c1!=c2 and myArray.lcp[i-1]>lcsLen ){
+            lcsLen = myArray.lcp[i-1];
+            lcsid = myArray.P[i-1];
+         }
+      }
+
+      string ans = myArray.s.substr(lcsid, lcsLen);
+
+      return ans;
+   }
 };
 //END
 int main(){
-   string s;
-   cin >> s;
+   string s1, s2;
+   cin >> s1 >> s2;
    //s = "mmuc";
-   SuffixArray myArray(s.c_str());
+   //SuffixArray myArray(s.c_str());
 
    //myArray.print();printf("\n");
 
@@ -165,18 +186,15 @@ int main(){
 //   for(int i: ans)printf("%d ", i); printf("\n\n");
 
 
-   printf("%lld\n", myArray.count_substrs() );
+   cout << SuffixArray::lcs(s1,s2) << endl;
 
    return 0;
 }
 
 /*
-ababba
+bababb
+zabacabba
 
-6 5 0 2 4 1 3
-0 1 2 0 2 1
-
-15
 
 Número de diferentes subsequências contíguas que aparecem pelo menos duas vezes na sequência
 https://www.urionlinejudge.com.br/judge/pt/problems/view/1377
