@@ -5,6 +5,8 @@ struct SuffixArray{
    int len;
    string s;
    vector<int> P;
+   vector<int> pos;
+   vector<int> lcp;
 
    void mySort(vector< int > &p, vector<int> &level){
 
@@ -58,6 +60,20 @@ struct SuffixArray{
             level_new[ P[i] ] = level_new[ P[i-1] ] + (now>prev);
          }
          level = level_new;
+      }
+
+      pos = vector<int> (len);
+      for(int i = 0; i < len; i++){
+         pos[ P[i] ] = i;
+      }
+
+      lcp = vector<int> (len-1);
+      int k = 0;
+      for(int i = 0; i+1 < len; i++){
+         int prev = P[ pos[ i ] - 1];
+         while( s[i+k] == s[prev+k] ) k++;
+         lcp[ pos[i]-1 ] = k--;
+         k = max(k, int(0) );
       }
    }
 
@@ -128,28 +144,24 @@ struct SuffixArray{
 int main(){
    string s;
    cin >> s;
-
+   //s = "ababba";
    SuffixArray myArray(s.c_str());
 
-   //myArray.print();
-   //vector<int> ans = myArray.P;
-   //for(int i: ans)printf("%d ", i);
-   //printf("\n");
-   int n;
-   cin >> n;
-   for(int i = 0; i < n;i ++){
-      cin >> s;
-      cout << myArray.count_substr(s) << "\n";
+   vector<int> ans = myArray.P;
+   for(int i: ans)printf("%d ", i); printf("\n");
 
-   }
+   ans = myArray.lcp;
+   for(int i: ans)printf("%d ", i); printf("\n");
+
+
+   return 0;
 }
 
 /*
 ababba
-3
-ba
-baba
-abba
+
+6 5 0 2 4 1 3
+0 1 2 0 2 1
 
 Número de diferentes subsequências contíguas que aparecem pelo menos duas vezes na sequência
 https://www.urionlinejudge.com.br/judge/pt/problems/view/1377
