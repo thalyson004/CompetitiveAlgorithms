@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+#define int int64_t
+
 //BEGIN
 struct SuffixArray{
    int len;
@@ -73,7 +76,7 @@ struct SuffixArray{
          int prev = P[ pos[ i ] - 1];
          while( s[i+k] == s[prev+k] ) k++;
          lcp[ pos[i]-1 ] = k--;
-         k = max(k, int(0) );
+         k = max( k, int(0LL) );
       }
 
    }
@@ -171,9 +174,11 @@ struct SuffixArray{
    }
 };
 //END
-int main(){
-   string s1, s2;
-   cin >> s1 >> s2;
+main(){
+   string s;
+   cin >> s;
+   int n;
+   cin >> n;
    //s = "mmuc";
    //SuffixArray myArray(s.c_str());
 
@@ -186,14 +191,36 @@ int main(){
 //   for(int i: ans)printf("%d ", i); printf("\n\n");
 
 
-   cout << SuffixArray::lcs(s1,s2) << endl;
+   SuffixArray myS(s);
+   vector<int> pos = myS.pos;
+
+   vector< pair<int, pair<int,int> > > v;
+   for(int i = 0; i < n; i++){
+      int l, r;
+      cin >> l >> r;
+
+      v.push_back( {pos[l-1], {l,r} } );
+   }
+   sort( v.begin(), v.end() );
+   myS.print();
+   for(auto it:v){
+      cout << s.substr(it.second.first-1, (it.second.second-it.second.first+1));
+      printf(" (%d) ", it.first);
+      printf("%d %d\n", it.second.first, it.second.second);
+   }
 
    return 0;
 }
 
 /*
-bababb
-zabacabba
+abacaba
+6
+4 7
+1 2
+1 1
+3 4
+5 7
+1 3
 
 
 Número de diferentes subsequências contíguas que aparecem pelo menos duas vezes na sequência
