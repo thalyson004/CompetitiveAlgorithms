@@ -47,18 +47,3 @@ main(){
 
    return 0;
 }
-
-/*
-abacaba
-6
-4 7
-1 2
-1 1
-3 4
-5 7
-1 3
-
-
-Número de diferentes subsequências contíguas que aparecem pelo menos duas vezes na sequência
-https://www.urionlinejudge.com.br/judge/pt/problems/view/1377
-*/
