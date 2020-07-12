@@ -5,6 +5,10 @@ struct SimpleGraph{
    int vertices;
    vector<vector<int>> edges;
 
+   vector<int> &operator [] (int i){
+      return edges[i];
+   }
+
    SimpleGraph(int _vertices){
       vertices = _vertices;
       edges = vector<vector<int>>(vertices);
@@ -54,6 +58,15 @@ int main(){
    for(int d: dist) cur += d%2;
 
    printf("%s\n", cur*2==N?"Y":"N");
+
+   for(int i = 0; i < N; i++){
+      printf("(%d) - %d:", int(graph[i].size()), i );
+      for(int j=0; j < graph[i].size(); j++){
+         printf(" %d", graph[i][j]);
+      }
+      printf("\n");
+   }
+
 }
 
 /*
