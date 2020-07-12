@@ -6,7 +6,6 @@ struct MaxTree {
    int len;
    int INF;
    vector<int> max_value;
-   vector<int> max_loc;
    vector<int> left;
    vector<int> right;
 
@@ -16,7 +15,6 @@ struct MaxTree {
    MaxTree( int _len ){
       len = _len;
       max_value = vector<int>(4*len);
-      max_loc = vector<int>(4*len);
       left = vector<int>(4*len);
       right = vector<int>(4*len);
       setINF();
