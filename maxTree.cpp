@@ -73,7 +73,7 @@ struct MaxTree {
 
    int update(int value, int loc, int id = 0){
       if( left[id]>loc or right[id]<loc ){
-         return -INF;
+         return max_value[id];
       }else if( loc==left[id] and loc==right[id] ){
          return max_value[id] = value;
       }else{
