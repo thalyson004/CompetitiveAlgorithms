@@ -8,25 +8,28 @@ struct MaxTree {
    vector<int> max_value;
    vector<int> left;
    vector<int> right;
+   int(*func)(int,int);
 
    int leftChild(int id){ return id*2+1; }
    int rightChild(int id){ return id*2+2; }
 
-   MaxTree( int _len ){
+   MaxTree( int _len, int(*_func)(int,int)=[](int x, int y){return max(x,y);} ){
       len = _len;
       max_value = vector<int>(4*len);
       left = vector<int>(4*len);
       right = vector<int>(4*len);
+      func = _func ;
       setINF();
       build(0, 0, len-1);
    }
 
    template<class RandomIterator>
-   MaxTree( RandomIterator begin, RandomIterator end ){
+   MaxTree( RandomIterator begin, RandomIterator end, int(*_func)(int,int)=[](int x, int y){return max(x,y);} ){
       len = distance(begin, end);
       max_value = vector<int>(4*len);
       left = vector<int>(4*len);
       right = vector<int>(4*len);
+      func = _func;
       setINF();
       build(0, 0, len-1, begin);
    }
@@ -34,6 +37,7 @@ struct MaxTree {
    void setINF(){
       INF = 1;
       while( INF < (INF<<2) ) INF = (INF<<2);
+      INF = func(INF, -INF );
    }
 
    template<class RandomIterator>
@@ -42,7 +46,7 @@ struct MaxTree {
       right[id]=r;
       if(l!=r){
          int m = (l+r)/2;
-         return max_value[id] = max(
+         return max_value[id] = func(
                         build( leftChild(id), l,  m, begin),
                         build( rightChild(id), m+1,  r, begin)
                      );
@@ -64,7 +68,7 @@ struct MaxTree {
    int query(int ql, int qr, int id = 0){
       if( left[id]>qr or right[id]<ql ) return -INF;
       else if( ql<=left[id] and right[id]<=qr ) return max_value[id];
-      else return max( query(ql,qr,leftChild(id)), query(ql,qr,rightChild(id)));
+      else return func( query(ql,qr,leftChild(id)), query(ql,qr,rightChild(id)));
    }
 
    int update(int value, int loc, int id = 0){
@@ -73,7 +77,7 @@ struct MaxTree {
       }else if( loc==left[id] and loc==right[id] ){
          return max_value[id] = value;
       }else{
-         return max_value[id] = max(
+         return max_value[id] = func(
                   update(value, loc, leftChild(id)),
                   update(value, loc, rightChild(id))
          );
@@ -89,18 +93,18 @@ int N, M, CASES;
 main(){
    int v[] = {1,5,6,3,2,9,7,3,2,6};
    //         0 1 2 3 4 5 6 7 8 9
+   printf("MaxTree\n");
    MaxTree myTree(v, v+10);
    cout << myTree.query(0, 3) << endl;
    cout << myTree.query(3, 7) << endl;
    cout << myTree.query(1, 1) << endl;
-   cout << myTree.query(0, 9) << endl;
+   cout << myTree.query(6, 9) << endl;
 
    vector<int> vv(v, v+10);
-   myTree = MaxTree(vv.begin(), vv.end());
+   printf("MinTree\n");
+   myTree = MaxTree(vv.begin(), vv.end(), [](int x,int y){return min(x,y);});
    cout << myTree.query(0, 3) << endl;
    cout << myTree.query(3, 7) << endl;
    cout << myTree.query(1, 1) << endl;
-   cout << myTree.query(0, 9) << endl;
-
-   cout << myTree.INF << endl;
+   cout << myTree.query(6, 9) << endl;
 }
