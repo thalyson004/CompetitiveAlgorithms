@@ -21,6 +21,30 @@ struct MaxTree {
       build(0, 0, len-1);
    }
 
+   template<class T>
+   MaxTree( T *begin, T *end ){
+      len = distance(begin, end);
+      tree = vector<int>(4*len);
+      left = vector<int>(4*len);
+      right = vector<int>(4*len);
+      build(0, 0, len-1, begin);
+   }
+
+   template<class T>
+   int build(int id, int l, int r, T *begin){
+      left[id]=l;
+      right[id]=r;
+      if(l!=r){
+         int m = (l+r)/2;
+         return tree[id] = max(
+                        build( leftChild(id), l,  m, begin),
+                        build( rightChild(id), m+1,  r, begin)
+                     );
+      }else{
+         return tree[id] = begin[l];
+      }
+   }
+
    void build(int id, int l, int r){
       left[id]=l;
       right[id]=r;
@@ -57,13 +81,12 @@ struct MaxTree {
 int N, M, CASES;
 
 main(){
+   int v[] = {1,5,6,3,2,9,7,3,2,6};
+   //         0 1 2 3 4 5 6 7 8 9
+   MaxTree myTree(v, v+10);
 
-   MaxTree myTree(10);
-
+   cout << myTree.query(0, 3) << endl;
+   cout << myTree.query(3, 7) << endl;
+   cout << myTree.query(1, 1) << endl;
    cout << myTree.query(0, 9) << endl;
-   myTree.update(5, 4);
-
-   cout << myTree.query(1, 3) << endl;
-   cout << myTree.query(3, 5) << endl;
-   cout << myTree.query(5, 9) << endl;
 }
