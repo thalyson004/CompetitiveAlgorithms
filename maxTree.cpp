@@ -4,8 +4,9 @@ using namespace std;
 //BEGIN
 struct MaxTree {
    int len;
-   int INF = (1<<30);
-   vector<int> tree;
+   int INF;
+   vector<int> max_value;
+   vector<int> max_loc;
    vector<int> left;
    vector<int> right;
 
@@ -14,20 +15,27 @@ struct MaxTree {
 
    MaxTree( int _len ){
       len = _len;
-      tree = vector<int>(4*len);
+      max_value = vector<int>(4*len);
+      max_loc = vector<int>(4*len);
       left = vector<int>(4*len);
       right = vector<int>(4*len);
-
+      setINF();
       build(0, 0, len-1);
    }
 
    template<class RandomIterator>
    MaxTree( RandomIterator begin, RandomIterator end ){
       len = distance(begin, end);
-      tree = vector<int>(4*len);
+      max_value = vector<int>(4*len);
       left = vector<int>(4*len);
       right = vector<int>(4*len);
+      setINF();
       build(0, 0, len-1, begin);
+   }
+
+   void setINF(){
+      INF = 1;
+      while( INF < (INF<<2) ) INF = (INF<<2);
    }
 
    template<class RandomIterator>
@@ -36,12 +44,12 @@ struct MaxTree {
       right[id]=r;
       if(l!=r){
          int m = (l+r)/2;
-         return tree[id] = max(
+         return max_value[id] = max(
                         build( leftChild(id), l,  m, begin),
                         build( rightChild(id), m+1,  r, begin)
                      );
       }else{
-         return tree[id] = begin[l];
+         return max_value[id] = begin[l];
       }
    }
 
@@ -57,7 +65,7 @@ struct MaxTree {
 
    int query(int ql, int qr, int id = 0){
       if( left[id]>qr or right[id]<ql ) return -INF;
-      else if( ql<=left[id] and right[id]<=qr ) return tree[id];
+      else if( ql<=left[id] and right[id]<=qr ) return max_value[id];
       else return max( query(ql,qr,leftChild(id)), query(ql,qr,rightChild(id)));
    }
 
@@ -65,9 +73,9 @@ struct MaxTree {
       if( left[id]>loc or right[id]<loc ){
          return -INF;
       }else if( loc==left[id] and loc==right[id] ){
-         return tree[id] = value;
+         return max_value[id] = value;
       }else{
-         return tree[id] = max(
+         return max_value[id] = max(
                   update(value, loc, leftChild(id)),
                   update(value, loc, rightChild(id))
          );
@@ -95,4 +103,6 @@ main(){
    cout << myTree.query(3, 7) << endl;
    cout << myTree.query(1, 1) << endl;
    cout << myTree.query(0, 9) << endl;
+
+   cout << myTree.INF << endl;
 }
