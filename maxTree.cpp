@@ -21,8 +21,8 @@ struct MaxTree {
       build(0, 0, len-1);
    }
 
-   template<class T>
-   MaxTree( T *begin, T *end ){
+   template<class RandomIterator>
+   MaxTree( RandomIterator begin, RandomIterator end ){
       len = distance(begin, end);
       tree = vector<int>(4*len);
       left = vector<int>(4*len);
@@ -30,8 +30,8 @@ struct MaxTree {
       build(0, 0, len-1, begin);
    }
 
-   template<class T>
-   int build(int id, int l, int r, T *begin){
+   template<class RandomIterator>
+   int build(int id, int l, int r, RandomIterator begin){
       left[id]=l;
       right[id]=r;
       if(l!=r){
@@ -84,7 +84,13 @@ main(){
    int v[] = {1,5,6,3,2,9,7,3,2,6};
    //         0 1 2 3 4 5 6 7 8 9
    MaxTree myTree(v, v+10);
+   cout << myTree.query(0, 3) << endl;
+   cout << myTree.query(3, 7) << endl;
+   cout << myTree.query(1, 1) << endl;
+   cout << myTree.query(0, 9) << endl;
 
+   vector<int> vv(v, v+10);
+   myTree = MaxTree(vv.begin(), vv.end());
    cout << myTree.query(0, 3) << endl;
    cout << myTree.query(3, 7) << endl;
    cout << myTree.query(1, 1) << endl;
