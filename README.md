@@ -2,7 +2,18 @@
 Some algorithms and structs for competitive programming contests
 
 ## Simple structures
-- [X] [Matrix](https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/matrix.cpp)
+- [X] <details> 
+  <summary>
+    <a href="https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/matrix.cpp">Matrix</a>
+    </summary>
+  
+  <ul>
+  <li>Matrix(int _rows, int _columns): Construct matrix.</li>
+  <li>bool inside(int row, int column): check if this point is inside</li>
+  <li>vector<T>& operator [] (int row): Access specific row</li>
+  </ul>
+    
+</details>
 
 ## Geometry 
 
