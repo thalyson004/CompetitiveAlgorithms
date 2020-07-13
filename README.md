@@ -2,7 +2,7 @@
 Some algorithms and structs for competitive programming contests
 
 ## Simple structures
-- [X] <details> 
+<details> 
   <summary>
     <a href="https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/matrix.cpp">Matrix</a>
     </summary>
