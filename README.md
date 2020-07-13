@@ -2,7 +2,7 @@
 Some algorithms and structs for competitive programming contests
 
 ## Simple structures
-- [X] Matrix
+- [X] [Matrix](https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/matrix.cpp)
 
 ## Geometry 
 
@@ -10,16 +10,16 @@ Some algorithms and structs for competitive programming contests
 - [ ] Union-Find
 
 ## Graph
-- [X] Simple Graph (Unweighted Graph)
+- [X] [Simple Graph (Unweighted Graph)](https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/simpleGraph.cpp)
 
 ## Range query structures
 ### Point update - range query
-- [X] Max/min segment tree
-- [X] Fenwick tree (presum)
+- [X] [Max/min segment tree](https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/maxTree.cpp)
+- [X] [Fenwick tree (presum)](https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/preSumBit.cpp)
 
 ### Range update - range query
-- [X] Sum update and query - Lazy segment tree
-- [X] Sum update and max query - Lazy segment tree
+- [X] [Sum update and query - Lazy segment tree](https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/rangeSumTree.cpp)
+- [X] [Sum update and max query - Lazy segment tree](https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/rangeSumUpdateRangeMaxQueryTree.cpp)
 
 ### No update - range query
 - [ ] Max/min sparse table
@@ -28,7 +28,7 @@ Some algorithms and structs for competitive programming contests
 ## Math Algorithms
 
 ## String Algorithms
-- [X] SuffixArray
+- [X] [SuffixArray](https://github.com/thalyson004/CompetitiveAlgorithms/blob/master/suffixArray.cpp)
 
 ## Useful functions
 ### Math
