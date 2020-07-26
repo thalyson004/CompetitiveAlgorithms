@@ -7,6 +7,11 @@ struct Matrix{
    int columns;
    vector< vector<T> > grid;
 
+   Matrix(){
+         rows = columns = 0;
+         grid = vector< vector<T> >();
+   }
+
    Matrix(int _rows, int _columns){
       rows = _rows;
       columns = _columns;
@@ -32,6 +37,8 @@ struct Matrix{
 };
 //END
 int main(){
+   Matrix<int> zero;
+
    Matrix<int> m(3,4);
    printf("2, 3 are inside? %d\n", m.inside(2,3) );
    printf("-1, 3 are inside? %d\n", m.inside(-1,3) );
