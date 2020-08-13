@@ -26,6 +26,24 @@ struct Matrix{
       return grid[row];
    }
 
+   void fill(T value){
+      for(int i = 0; i < rows; i++)
+         for(int j = 0; j < columns; j++)
+            grid[i][j] = value;
+   }
+
+   void clock_rotate(){
+      vector< vector<T> > result = vector< vector<T> >(columns, vector<T>(rows));
+
+      for(int i = 0; i < columns; i++){
+         for(int j = 0; j < rows; j++){
+            result[i][j] = grid[columns-j-1][i];
+         }
+      }
+      swap(columns, rows);
+      grid = result;
+   }
+
    void print(){
       for(int i = 0; i < rows; i++){
          for(int j = 0; j < columns; j++){
@@ -45,6 +63,23 @@ int main(){
 
    m.print();
    m[2][3] = 5;
+   printf("---\n");
+   m.print();
+   printf("---\n");
+   m.fill(7);
+   m.print();
+   printf("---\n");
+   m = Matrix<int>(3,3);
+   int x = 0;
+   for(int i = 0; i < 3; i++)
+   for(int j = 0; j < 3; j++)
+      m[i][j] = x++;
+   m.print();
+   printf("---\n");
+   m.clock_rotate();
+   m.print();
+   printf("---\n");
+   m.clock_rotate();
    m.print();
    //suahsuahsuah
 }
