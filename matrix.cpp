@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
+/*
+TODO:
+   Add begin() and end() methods
+*/
+
 //BEGIN
 template<class T>
 struct Matrix{
@@ -37,7 +42,7 @@ struct Matrix{
 
       for(int i = 0; i < columns; i++){
          for(int j = 0; j < rows; j++){
-            result[i][j] = grid[columns-j-1][i];
+            result[i][j] = grid[rows-j-1][i];
          }
       }
       swap(columns, rows);
