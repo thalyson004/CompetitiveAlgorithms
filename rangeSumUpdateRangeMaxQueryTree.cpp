@@ -78,7 +78,7 @@ struct rangeSumUpdateRangeMaxQueryTree {
 
    int query(int ql, int qr, int id = 0){
       push(id);
-      if( left[id]>qr or right[id]<ql ) return -(1LL<<60);
+      if( left[id]>qr or right[id]<ql ) return -(oo);
       else if( ql<=left[id] and right[id]<=qr ) return great[id];
       else return max( query(ql,qr,leftChild(id)), query(ql,qr,rightChild(id)));
    }

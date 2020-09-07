@@ -9,6 +9,10 @@ struct SimpleGraph{
       return edges[i];
    }
 
+   SimpleGraph(){
+      vertices=0;
+   }
+
    SimpleGraph(int _vertices){
       vertices = _vertices;
       edges = vector<vector<int>>(vertices);
@@ -40,6 +44,31 @@ struct SimpleGraph{
          }
       }
       return dist;
+   }
+
+   int longestVerticeFrom(int v){
+      vector<int> distA = distanceFrom(v);
+      int longest = 0;
+      for(int i = 0; i < vertices; i++){
+         if(  distA[longest] < distA[i] )
+            longest = i;
+      }
+      return longest;
+   }
+
+   int longestDistanceFrom(int v){
+      vector<int> distA = distanceFrom(v);
+      int longest = 0;
+      for(int i = 0; i < vertices; i++){
+         if(  distA[longest] < distA[i] )
+            longest = i;
+      }
+      return distA[longest];
+   }
+
+   int diameter(){
+      int longest = longestVerticeFrom(0);
+      return longestDistanceFrom(longest);
    }
 };
 //END
