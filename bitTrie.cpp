@@ -55,13 +55,11 @@ main(){
    int v[] = {3, 10, 5, 25, 2, 8};
 
    BitTrie myTrie;
-   for(int i = 0; i < 6; i++){
-      myTrie.addNumber( v[i] );
-   }
-
    int ans = 0;
    for(int i = 0; i < 6; i++){
       ans = max(ans, myTrie.maxXor(v[i]) );
+      myTrie.addNumber( v[i] );
    }
+
    printf("%d\n", ans);
 }
