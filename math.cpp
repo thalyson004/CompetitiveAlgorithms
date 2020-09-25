@@ -28,7 +28,7 @@ namespace math{
       return fastExp(x, MOD-2LL);
    }
 
-   //WARNING: Using inv fuction many time can be your algorithm to much slow
+   /*WARNING: Using inv fuction many time can be your algorithm to much slow*/
    int64_t combination(int64_t n, int64_t k){
       if(n<k) return 0LL;
       return (((fat(n)*inv(fat(k)))%MOD)*inv( fat(n-k) ))%MOD;
@@ -44,7 +44,7 @@ namespace math{
       return a*(b/__gcd(a,b));
    }
 
-   //WARNING: actually, this struct is pretty slow
+   /*WARNING: actually, this struct is pretty slow*/
    struct modInt{
       int64_t value;
       modInt(){
