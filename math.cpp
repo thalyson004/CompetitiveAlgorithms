@@ -33,6 +33,16 @@ namespace math{
       return (((fat(n)*inv(fat(k)))%MOD)*inv( fat(n-k) ))%MOD;
    }
 
+   template<class T>
+   T gcd(T a, T b){
+      return __gcd(a,b);
+   }
+
+   template<class T>
+   T lcm(T a, T b){
+      return a*(b/__gcd(a,b));
+   }
+
    struct modInt{
       int64_t value;
       modInt(){
@@ -78,6 +88,9 @@ int main(){
    cout << ans << endl;
    ans *= 1000000;
    cout << ans << endl;
+
+   cout << math::gcd(20, 15) << endl;
+   cout << math::lcm(20, 15) << endl;
 }
 
 /*
