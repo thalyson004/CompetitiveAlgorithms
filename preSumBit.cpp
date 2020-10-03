@@ -16,14 +16,14 @@ struct PrefixSumBit{
       return value & -value;
    }
 
-   void add(int value, int id){
+   void update(int value, int id){
       while( id <= len ){
          bit[id]+=value;
          id += LSB(id);
       }
    }
 
-   int preSum(int id){
+   int query(int id){
       int ans = 0;
       while(id){
          ans += bit[id];
@@ -38,11 +38,11 @@ main(){
    PrefixSumBit bit(10);
 
    for(int i = 1; i <= 10; i++){
-      bit.add(i, i);
+      bit.update(i, i);
    }
    printf("Chegou aqui\n");
    for(int i = 1; i <= 10; i++){
-      printf("%d - %d\n", bit.preSum(i), i );
+      printf("%d - %d\n", bit.query(i), i );
    }
 
    return 0;
