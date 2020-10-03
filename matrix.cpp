@@ -23,6 +23,12 @@ struct Matrix{
       grid = vector< vector<T> >(rows, vector<T>(columns));
    }
 
+   Matrix(int _rows, int _columns, T value){
+      rows = _rows;
+      columns = _columns;
+      grid = vector< vector<T> >(rows, vector<T>(columns, value));
+   }
+
    bool inside(int row, int column){
       return row>=0 and row<rows and column>=0 and column<columns;
    }
