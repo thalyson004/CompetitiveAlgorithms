@@ -18,6 +18,20 @@ namespace binary{
    }
 
    template<class T>
+   int position(T value, vector<T> &v){
+      int l = 0, r = v.size();
+      while(l<r){
+         int m = (l+r)/2;
+         if( v[m]<value ){
+            l = m+1;
+         }else{
+            r = m;
+         }
+      }
+      return l;
+   }
+
+   template<class T>
    int firstGreater(T value, vector<T> &v){
       int l = 0, r = v.size();
       while(l<r){
