@@ -7,10 +7,8 @@ struct PrefixSumBit{
    vector<int> bit;
 
    /*1 to len*/
-   PrefixSumBit(int _len){
-      len = _len;
-      bit = vector<int>(len+1);
-   }
+   PrefixSumBit(int _len): len(_len), bit(len+1){}
+
    /*LeastSignificantBit*/
    static int LSB(int value){
       return value & -value;
@@ -32,17 +30,40 @@ struct PrefixSumBit{
       return ans;
    }
 };
+struct PosfixSumBit : public PrefixSumBit{
+   PosfixSumBit(int _len) : PrefixSumBit(_len){}
+
+   int reverseIndex(int id){
+      return len-id+1;
+   }
+   int query(int id){
+      return PrefixSumBit::query(reverseIndex(id));
+   }
+   void update(int value, int id){
+      PrefixSumBit::update(value, reverseIndex(id));
+   }
+};
 //END
 
 main(){
-   PrefixSumBit bit(10);
+   printf("PrefixSum\n");
+   PrefixSumBit pre(10);
 
    for(int i = 1; i <= 10; i++){
-      bit.update(i, i);
+      pre.update(i, i);
    }
-   printf("Chegou aqui\n");
    for(int i = 1; i <= 10; i++){
-      printf("%d - %d\n", bit.query(i), i );
+      printf("%d - %d\n", pre.query(i), i );
+   }
+
+   printf("PosfixSum\n");
+   PosfixSumBit pos(10);
+
+   for(int i = 1; i <= 10; i++){
+      pos.update(i, i);
+   }
+   for(int i = 1; i <= 10; i++){
+      printf("%d - %d\n", pos.query(i), i );
    }
 
    return 0;
