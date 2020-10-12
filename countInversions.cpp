@@ -2,7 +2,8 @@
 using namespace std;
 
 //BEGIN
-/*Calc inversions to order an interval*/
+/*Calc inversions to order an integer permutation interval*/
+/*WARNING only for integer permutations (0 to N-1)*/
 template<class Interator>
 int64_t countInversions(Interator begin, Interator end){
    if(begin+1==end) return int64_t(0);
