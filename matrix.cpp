@@ -55,16 +55,52 @@ struct Matrix{
       grid = result;
    }
 
+   Matrix pow(int x, int mod){
+      if(rows!=columns) return Matrix();
+
+      Matrix<T> ans(rows, columns);
+      for(int i=0; i < rows; i++)
+         ans[i][i] = 1;
+
+      Matrix<T> cur = *this;
+      while(x){
+         if(x&1){
+            ans = multiply(ans, cur, mod);
+         }
+         cur = multiply(cur, cur, mod);
+         x /= 2;
+      }
+
+      return ans;
+   }
+
+
    void print(){
       for(int i = 0; i < rows; i++){
          for(int j = 0; j < columns; j++){
             cout << grid[i][j] << ' ';
          }
-         printf("\n");
+         cout << "\n";
       }
    }
+
+private:
+   Matrix<T> multiply(Matrix<T> &a, Matrix<T> &b, int mod){
+      if(a.columns != b.rows ) return Matrix();
+      Matrix<T> ans(a.rows, b.columns);
+      for(int i = 0; i < a.rows; i++){
+         for(int j = 0; j < b.columns; j++){
+            for(int k = 0; k < a.columns; k++){
+               ans[i][j] = (ans[i][j] + a[i][k]*b[k][j])%mod;
+            }
+         }
+      }
+      return ans;
+   }
 };
+
 //END
+
 int main(){
    Matrix<int> zero;
 
