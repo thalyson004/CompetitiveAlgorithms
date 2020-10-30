@@ -1,0 +1,5 @@
+_script.py
+clean.py
+*.exe
+*.o
+.DS_Store

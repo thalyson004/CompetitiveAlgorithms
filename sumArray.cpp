@@ -13,13 +13,18 @@ struct SumArray{
       }
    }
    int query(int l, int r){
-      if(l>r) swap(l,r);
+      //Is better zero than swap.
+      //Probally less errors.
+      if(l>r) int(0);
       return query(r) - query(l-1);
    }
 
    int query(int r){
+      //If is less than 0, has no interval
       if(r<0) return int(0);
+      //If is greater than N-1, has whole interval
       else if(r>=len) return sum_array[len-1];
+      //Else, only between 0 and r
       else return sum_array[r];
    }
 };
