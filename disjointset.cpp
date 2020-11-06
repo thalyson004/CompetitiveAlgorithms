@@ -118,7 +118,7 @@ struct disjoint_set{
       return x==leader[x]?(x):(leader[x] = query(leader[x]));
    }
 
-   int size(int x){
+   int get_size(int x){
       return group_size[ query(x) ];
    }
 };
