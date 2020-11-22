@@ -13,6 +13,8 @@ struct MaxTree {
    int leftChild(int id){ return id*2+1; }
    int rightChild(int id){ return id*2+2; }
 
+   MaxTree(){};
+
    MaxTree( int _len, int(*_func)(int,int)=[](int x, int y){return max(x,y);} ){
       len = _len;
       max_value = vector<int>(4*len);
@@ -85,6 +87,30 @@ struct MaxTree {
    }
 
 };
+
+struct MinTree : public MaxTree{
+
+   MinTree( int _len, int(*_func)(int,int)=[](int x, int y){return min(x,y);} ){
+      len = _len;
+      max_value = vector<int>(4*len);
+      left = vector<int>(4*len);
+      right = vector<int>(4*len);
+      func = _func ;
+      setINF();
+      build(0, 0, len-1);
+   }
+
+   template<class RandomIterator>
+   MinTree( RandomIterator begin, RandomIterator end, int(*_func)(int,int)=[](int x, int y){return min(x,y);} ){
+      len = distance(begin, end);
+      max_value = vector<int>(4*len);
+      left = vector<int>(4*len);
+      right = vector<int>(4*len);
+      func = _func;
+      setINF();
+      build(0, 0, len-1, begin);
+   }
+};
 //END
 
 //Main
@@ -102,9 +128,10 @@ main(){
 
    vector<int> vv(v, v+10);
    printf("MinTree\n");
-   myTree = MaxTree(vv.begin(), vv.end(), [](int x,int y){return min(x,y);});
+   myTree = MinTree(vv.begin(), vv.end(), [](int x,int y){return min(x,y);});
    cout << myTree.query(0, 3) << endl;
    cout << myTree.query(3, 7) << endl;
    cout << myTree.query(1, 1) << endl;
    cout << myTree.query(6, 9) << endl;
+   cout << myTree.query(10, 9) << endl;
 }
