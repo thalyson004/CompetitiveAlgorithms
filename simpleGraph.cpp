@@ -46,6 +46,27 @@ struct SimpleGraph{
       return dist;
    }
 
+   vector<int> distanceFrom(vector<int> vs){
+      vector<int> dist(vertices, -1);
+      for(int v: vs) dist[v] = 0;
+
+      queue<int> bfs;
+      for(int v: vs) bfs.push( v );
+
+      while(bfs.size()){
+         int v = bfs.front();
+         bfs.pop();
+
+         for(int u: edges[v]){
+            if( dist[u]==-1 ){
+               dist[u] = dist[v]+1;
+               bfs.push( u );
+            }
+         }
+      }
+      return dist;
+   }
+
    int longestVerticeFrom(int v){
       vector<int> distA = distanceFrom(v);
       int longest = 0;
