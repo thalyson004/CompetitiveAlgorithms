@@ -42,9 +42,10 @@ struct SparseTable {
    }
 
    int query(int l, int r){
+      if(l>r or l<0 or r>=len) return -INF;
       if(l==r)return table[0][l];
       int n = 0;
-      while(l+(1<<(n+1)) < r) n++;
+      while(l+(1<<(n+1)) <= r) n++;
       return func( table[n][l], table[n][r-(1<<n)+1] );
    }
 };
