@@ -84,6 +84,12 @@ struct Matrix{
       }
    }
 
+   void flipH(){
+      for(int i = 0; i < rows; i++){
+         reverse(grid[i].begin(), grid[i].end());
+      }
+   }
+
 private:
    Matrix<T> multiply(Matrix<T> &a, Matrix<T> &b, int mod){
       if(a.columns != b.rows ) return Matrix();
