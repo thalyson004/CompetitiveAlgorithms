@@ -2,14 +2,29 @@
 using namespace std;
 //BEGIN
 namespace math{
+   int64_t fat(int);
+   int64_t ifat(int);
+   int64_t inv(int64_t);
+   int64_t fastExp(int64_t, int64_t);
+   int64_t combination(int64_t, int64_t);
+
    int64_t MOD = 1000000007LL;
-   vector<int64_t> fatorial(1,1);
+   vector<int64_t> factorial(1,1);
+   vector<int64_t> ifactorial(1,1);
 
    int64_t fat(int x){
-      while(fatorial.size() <= x){
-         fatorial.push_back(  (fatorial.back()*fatorial.size())%MOD  );
+      while(factorial.size() <= x){
+         factorial.push_back( (factorial.back()*factorial.size())%MOD  );
       }
-      return fatorial[x];
+      return factorial[x];
+   }
+
+   int64_t ifat(int x){
+      fat(x);
+      while(ifactorial.size() <= x){
+         ifactorial.push_back( inv( fat(ifactorial.size()) ) );
+      }
+      return ifactorial[x];
    }
 
 
@@ -31,7 +46,7 @@ namespace math{
    /*WARNING: Using inv fuction many time can be your algorithm to much slow*/
    int64_t combination(int64_t n, int64_t k){
       if(n<k) return 0LL;
-      return (((fat(n)*inv(fat(k)))%MOD)*inv( fat(n-k) ))%MOD;
+      return (((fat(n)*ifat(k))%MOD)*ifat(n-k))%MOD;
    }
 
    template<class T>
@@ -76,8 +91,8 @@ namespace math{
       }
    };
 }
-
 //END
+
 int main(){
 
    cout << math::fastExp(2,10) << endl;
